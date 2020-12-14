@@ -30,6 +30,7 @@ void Game::update()
 void Game::draw()
 {
 	std::cout << "Player2 health is: " << m_player2.getHealth();
+	std::cout << std::endl;
 }
 
 void Game::end()
