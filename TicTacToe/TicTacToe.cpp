@@ -1,14 +1,19 @@
 #include <iostream>
 
-char board[3][3];
+char board[3][3] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
 char decision = ' ';
 bool gameOver = false;
 
 void gameBoard()
 {
+    //Draws out the tic tac toe board
     for (int i = 0; i < 3; i++)
     {
-
+        for (int n = 0; n < 3; n++)
+        {
+            board[i][n] = '*';
+            std::cout << board[i][n];
+        }
     }
 }
 
@@ -29,8 +34,8 @@ void TicTacToe()
 
 int main()
 {
-    std::cout << "Welcome to Tic Tac Toe!" << "Player1 please enter a name!";
-    std::cout << std::endl;
+    //std::cout << "Welcome to Tic Tac Toe!" << "Player1 please enter a name!";
+    //std::cout << std::endl;
     gameBoard();
 
     system("pause");
