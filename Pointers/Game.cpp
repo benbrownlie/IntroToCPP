@@ -1,5 +1,6 @@
 #include "Game.H"
 #include <iostream>
+#include <fstream>
 
 void Game::run()
 {
@@ -23,9 +24,56 @@ void Game::start()
 	m_player2 = new Character(10, 10);
 }
 
+int Game::saveGame()
+{
+	std::fstream file;
+	file.open("save.txt", std::ios::out | std::ios::_Nocreate);
+
+	//Checks if the file isnt opened. If so return from main
+	if (!file.is_open())
+	{
+		return 1;
+	}
+
+	file << m_player1->getHealth() << std::endl;
+	file << m_player1->getDamage() << std::endl;
+	file.close();
+
+	return 0;
+}
+
+void Game::combatLoop()
+{
+	while (m_player1->getIsAlive() && m_player2->getIsAlive())
+	{
+		char input = 0;
+		std::cout << "\nWhat will you do?";
+		std::cout << "\n\|1|Attack |2|Block |3|Save" << std::endl;
+		std::cin >> input;
+
+		if (input == 1)
+		{
+			std::cout << "\nYou attack player2 for " << m_player1->getDamage();
+			m_player1->attack(m_player2);
+		}
+
+		else if (input == 2)
+		{
+			std::cout << "\nYou blocked the hit";
+		}
+
+		else if (input == 3)
+		{
+			std::cout << "\nYou saved the game";
+			saveGame();
+		}
+
+	}
+}
+
 void Game::update()
 {
-	m_player1->attack(m_player2);
+	combatLoop();
 }
 
 void Game::draw()

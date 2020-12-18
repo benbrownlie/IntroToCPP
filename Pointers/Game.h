@@ -13,6 +13,8 @@ private:
 	void update();
 	void draw();
 	void end();
+	void combatLoop();
+	int saveGame();
 
 private:
 	bool m_gameOver;

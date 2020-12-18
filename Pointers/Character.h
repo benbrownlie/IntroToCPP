@@ -11,6 +11,7 @@ public:
 	float takeDamage(float damageAmount);
 	float getDamage() { return m_damage; }
 	float getHealth() { return m_health; }
+	float getIsAlive() { return m_health > 0; }
 	char getName() { return *m_name; }
 
 private:
