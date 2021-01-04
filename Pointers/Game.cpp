@@ -27,7 +27,7 @@ void Game::start()
 int Game::saveGame()
 {
 	std::fstream file;
-	file.open("save.txt", std::ios::out | std::ios::_Nocreate);
+	file.open("save.txt", std::ios::app | std::ios::_Nocreate);
 
 	//Checks if the file isnt opened. If so return from main
 	if (!file.is_open())
@@ -71,9 +71,39 @@ void Game::combatLoop()
 	}
 }
 
+bool binarySave()
+{
+	std::fstream file;
+
+	file.open("savegame.txt", std::ios::app | std::ios::binary);
+
+	if (!file.is_open())
+		return false;
+
+	file.write((char*), sizeof(Character));
+}
+
+void saveLoadLoop()
+{
+	char input = 0;
+	std::cout << "\nSave or Load the game?";
+	std::cout << "\n\|1|Save |2|Load";
+	std::cin >> input;
+
+	if (input == 1)
+	{
+
+	}
+
+	else if (input == 2)
+	{
+
+	}
+}
+
 void Game::update()
 {
-	combatLoop();
+	saveLoadLoop();
 }
 
 void Game::draw()
