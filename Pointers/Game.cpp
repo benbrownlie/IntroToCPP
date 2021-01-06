@@ -24,22 +24,33 @@ void Game::start()
 	m_player2 = new Character(10, 10);
 }
 
-int Game::saveGame()
+bool Game::saveGame()
 {
+	//Create an instance of file.
 	std::fstream file;
+	//Open the file we want to save to
 	file.open("save.txt", std::ios::app | std::ios::_Nocreate);
 
 	//Checks if the file isnt opened. If so return from main
 	if (!file.is_open())
 	{
-		return 1;
+		return false;
 	}
 
-	file << m_player1->getHealth() << std::endl;
-	file << m_player1->getDamage() << std::endl;
+	file.write((char*)&m_player1, sizeof(Character));
+	file.write((char*)&m_player2, sizeof(Character));
+
+	file.read((char*)&m_player1, sizeof(Character));
+
+	std::cout << m_player1->getHealth() << std::endl;
+	std::cout << m_player1->getDamage() << std::endl;
+
+	std::cout << m_player2->getHealth() << std::endl;
+	std::cout << m_player2->getDamage() << std::endl;
+
 	file.close();
 
-	return 0;
+	return true;
 }
 
 void Game::combatLoop()
@@ -48,7 +59,7 @@ void Game::combatLoop()
 	{
 		char input = 0;
 		std::cout << "\nWhat will you do?";
-		std::cout << "\n\|1|Attack |2|Block |3|Save" << std::endl;
+		std::cout << "\n|1|Attack |2|Block |3|Save" << std::endl;
 		std::cin >> input;
 
 		if (input == 1)
@@ -71,39 +82,9 @@ void Game::combatLoop()
 	}
 }
 
-bool binarySave()
-{
-	std::fstream file;
-
-	file.open("savegame.txt", std::ios::app | std::ios::binary);
-
-	if (!file.is_open())
-		return false;
-
-	file.write((char*), sizeof(Character));
-}
-
-void saveLoadLoop()
-{
-	char input = 0;
-	std::cout << "\nSave or Load the game?";
-	std::cout << "\n\|1|Save |2|Load";
-	std::cin >> input;
-
-	if (input == 1)
-	{
-
-	}
-
-	else if (input == 2)
-	{
-
-	}
-}
-
 void Game::update()
 {
-	saveLoadLoop();
+	saveGame();
 }
 
 void Game::draw()

@@ -4,7 +4,6 @@ class Character
 public:
 	Character();
 	Character(float health, float damage);
-	Character(float health, float damage, char name);
 
 	void attack(Character* other);
 	void createPlayer();
@@ -12,11 +11,9 @@ public:
 	float getDamage() { return m_damage; }
 	float getHealth() { return m_health; }
 	float getIsAlive() { return m_health > 0; }
-	char getName() { return *m_name; }
 
 private:
 	float m_health;
 	float m_damage;
-	char* m_name;
 };
 

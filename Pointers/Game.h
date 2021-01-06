@@ -14,7 +14,7 @@ private:
 	void draw();
 	void end();
 	void combatLoop();
-	int saveGame();
+	bool saveGame();
 
 private:
 	bool m_gameOver;

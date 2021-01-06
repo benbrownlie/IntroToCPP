@@ -5,21 +5,12 @@ Character::Character()
 {
 	m_health = 100;
 	m_damage = 10;
-	m_name;
-
 }
 
 Character::Character(float health, float damage)
 {
 	m_health = health;
 	m_damage = damage;
-}
-
-Character::Character(float health, float damage, char name)
-{
-	m_health = health;
-	m_damage = damage;
-	m_name = &name;
 }
 
 void Character::attack(Character* other)
@@ -29,11 +20,13 @@ void Character::attack(Character* other)
 
 void Character::createPlayer()
 {
-	char playerName;
+	//Temporarily commented out player name creation
+
+	//char playerName;
 	std::cout << "Please enter your name" << std::endl;
-	std::cin >> playerName;
-	m_name = &playerName;
-	std::cout << "Welcome " << m_name;
+	//std::cin >> playerName;
+	//m_name = &playerName;
+	std::cout << "Welcome default!";
 
 }
 
