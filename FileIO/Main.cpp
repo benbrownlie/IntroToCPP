@@ -113,11 +113,6 @@ void saveLoadTest()
 		}
 	}
 
-	else
-	{
-		binaryLoad();
-	}
-
 
 }
 
