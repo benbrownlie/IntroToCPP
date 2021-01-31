@@ -2,6 +2,41 @@
 #include <fstream>
 #include "Character.h"
 
+int numbers = 0;
+std::fstream file;
+
+bool saveTest(int number)
+{
+	std::cout << "Enter a number" << std::endl;
+	std::cin >> number;
+
+	file.open("savefile.txt", std::ios::app | std::ios::binary);
+
+	if (!file.is_open())
+	{
+		return false;
+	}
+
+	file << number << std::endl;
+
+	file.close();
+	return true;
+}
+
+bool loadTest(int number)
+{
+	file.open("savefile.txt", std::ios::in | std::ios::binary);
+
+	if (!file.is_open())
+		return false;
+
+	file >> number;
+
+	file.close();
+
+	std::cout << number << std::endl;
+}
+
 bool textFileExample()
 {
 	///Test Files
@@ -39,81 +74,6 @@ bool textFileExample()
 	std::cout << player2.health << std::endl;
 	std::cout << player2.damage << std::endl;
 	return 0;
-}
-
-bool binarySave(Character custom)
-{
-	std::fstream file;
-
-	file.open("savefile.txt", std::ios::app | std::ios::binary);
-
-	if (!file.is_open())
-	{
-		return false;
-	}
-
-	file.write((char*)&custom, sizeof(Character));
-	file.close();
-
-	return true;
-}
-
-bool binaryLoad(Character custom)
-{
-	std::fstream file;
-
-	file.open("savefile.txt", std::ios::app | std::ios::binary);
-
-	if (!file.is_open())
-		return false;
-
-	file.seekg(sizeof(Character), std::ios::beg);
-
-	file.read((char*)&custom, sizeof(Character));
-
-	std::cout << custom.health << std::endl;
-	std::cout << custom.damage << std::endl;
-
-	file.close();
-	return true;
-}
-
-void saveLoadTest()
-{
-	//Creates variable for the players choice
-	int choice;
-	//Displays welcome message and askes wether the player would like to create a character
-	//or load from a previously saved character
-	std::cout << "\nWelcome! Please create or load a character." << std::endl;
-	std::cout << "\n|1|Create |2|Load" << std::endl;
-	//Takes in the player's choice
-	std::cin >> choice;
-
-	if (choice == 1)
-	{
-		int choice;
-		std::cout << "\nYou created a new character!";
-		Character player = Character();
-		player.health = 100;
-		player.damage = 10;
-		std::cout << "\nHealth: " << player.health;
-		std::cout << "\nDamage: " << player.damage << std::endl;
-		std::cout << "\nWould you like to save?";
-		std::cout << "\n|1|Yes |2|No" << std::endl;
-		std::cin >> choice;
-
-		if (choice == 1)
-		{
-			binarySave(player);
-		}
-
-		else
-		{
-			std::cout << "Wrong Answer";
-		}
-	}
-
-
 }
 
 bool binaryFileExample()
@@ -177,7 +137,8 @@ bool binaryFileExample()
 
 int main()
 {
-	saveLoadTest();
+	saveTest(numbers);
+	loadTest(numbers);
 	system("pause");
 
 	return 0;
