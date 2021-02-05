@@ -17,63 +17,28 @@ bool saveTest(int number)
 		return false;
 	}
 
-	file << number << std::endl;
+	file.write((char*)&number, sizeof(int));
 
 	file.close();
+	std::cout << "Number saved" << std::endl;
 	return true;
 }
 
 bool loadTest(int number)
 {
+	std::cout << "Number loaded" << std::endl;
 	file.open("savefile.txt", std::ios::in | std::ios::binary);
 
 	if (!file.is_open())
 		return false;
 
-	file >> number;
+	file.seekg(sizeof(int), std::ios::beg);
+	file.read((char*)&number, sizeof(int));
 
 	file.close();
 
 	std::cout << number << std::endl;
-}
-
-bool textFileExample()
-{
-	///Test Files
-	Character player = Character();
-	player.health = 100;
-	player.damage = 5;
-
-	//Example of saving to a text file
-	std::fstream file;
-	file.open("save.txt", std::ios::out | std::ios::_Nocreate);
-
-	//Checks if the file isnt opened. If so return from main
-	if (!file.is_open())
-	{
-		return 1;
-	}
-
-	//Writes to the text file
-	file << player.health << std::endl;
-	file << player.damage;
-
-	//Be sure to close file when done
-	file.close();
-
-	//Example of loading from a text file
-	Character player2 = Character();
-
-	file.open("save.txt", std::ios::in);
-	file >> player2.health;
-	file >> player2.damage;
-
-	//BE SURE to close file when done
-	file.close();
-
-	std::cout << player2.health << std::endl;
-	std::cout << player2.damage << std::endl;
-	return 0;
+	return true;
 }
 
 bool binaryFileExample()
@@ -134,6 +99,46 @@ bool binaryFileExample()
 	file.close();
 	return true;
 }
+
+bool textFileExample()
+{
+	///Test Files
+	Character player = Character();
+	player.health = 100;
+	player.damage = 5;
+
+	//Example of saving to a text file
+	std::fstream file;
+	file.open("save.txt", std::ios::out | std::ios::_Nocreate);
+
+	//Checks if the file isnt opened. If so return from main
+	if (!file.is_open())
+	{
+		return 1;
+	}
+
+	//Writes to the text file
+	file << player.health << std::endl;
+	file << player.damage;
+
+	//Be sure to close file when done
+	file.close();
+
+	//Example of loading from a text file
+	Character player2 = Character();
+
+	file.open("save.txt", std::ios::in);
+	file >> player2.health;
+	file >> player2.damage;
+
+	//BE SURE to close file when done
+	file.close();
+
+	std::cout << player2.health << std::endl;
+	std::cout << player2.damage << std::endl;
+	return 0;
+}
+
 
 int main()
 {
